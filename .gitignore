@@ -1,0 +1,15 @@
+**/target/
+.idea
+*.iml
+*.class
+*Test.java
+**/test/
+
+.env
+.env.*
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key
