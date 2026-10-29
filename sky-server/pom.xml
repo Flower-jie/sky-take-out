@@ -33,6 +33,12 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
         <!-- 静态隔离地图HTTP调用；仅测试使用兼容Java 21的字节码工具。 -->
         <dependency>
             <groupId>org.mockito</groupId>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>苍穹外卖 · Java 知识助手</title>
+    <link rel="stylesheet" href="ai.css">
+</head>
+<body>
+<div class="page">
+    <header class="header">
+        <div class="brand">
+            <span class="brand-mark">苍穹</span>
+            <div class="brand-text">
+                <h1>苍穹外卖 · Java 知识助手</h1>
+                <p>本地资料检索，可选接入大模型生成回答</p>
+            </div>
+        </div>
+        <div class="status-bar">
+            <span class="status-pill" id="statusChunks">片段 --</span>
+            <span class="status-pill" id="statusModel">模型 --</span>
+            <span class="status-pill" id="statusRetrieval">检索 --</span>
+            <button class="ghost-btn" id="tokenBtn" type="button">设置令牌</button>
+        </div>
+    </header>
+
+    <main class="layout">
+        <section class="chat-card" aria-label="对话区">
+            <div class="messages" id="messages" aria-live="polite">
+                <div class="empty-state" id="emptyState">
+                    <h2>从一个 Java 问题开始</h2>
+                    <p>例如：HashMap 扩容时为什么容量是 2 的幂？</p>
+                    <p class="empty-tip">回答会标注引用编号，点击引用可查看资料原文。</p>
+                </div>
+            </div>
+            <form class="composer" id="chatForm">
+                <textarea id="question" maxlength="4000" rows="3"
+                          placeholder="输入问题，Enter 发送，Shift+Enter 换行"></textarea>
+                <div class="composer-bar">
+                    <label class="toggle">
+                        <input type="checkbox" id="retrievalOnly">
+                        <span>仅检索</span>
+                    </label>
+                    <span class="hint" id="counter">0 / 4000</span>
+                    <button class="ghost-btn" id="stopBtn" type="button" hidden>停止</button>
+                    <button class="primary-btn" id="sendBtn" type="submit">发送</button>
+                </div>
+            </form>
+        </section>
+
+        <aside class="side">
+            <section class="panel">
+                <div class="panel-head">
+                    <h2>知识库资料</h2>
+                    <button class="ghost-btn" id="refreshBtn" type="button">刷新</button>
+                </div>
+                <ul class="source-list" id="sourceList"></ul>
+                <p class="panel-hint" id="sourceEmpty" hidden>暂无资料</p>
+            </section>
+
+            <section class="panel">
+                <div class="panel-head">
+                    <h2>新增资料</h2>
+                </div>
+                <form class="doc-form" id="docForm">
+                    <label>标题
+                        <input id="docTitle" maxlength="100" placeholder="不超过 100 字" required>
+                    </label>
+                    <label>来源（可选）
+                        <input id="docSource" maxlength="160" placeholder="留空自动生成">
+                    </label>
+                    <label>内容
+                        <textarea id="docContent" maxlength="20000" rows="5"
+                                  placeholder="粘贴 Markdown 或纯文本，不超过 20000 字" required></textarea>
+                    </label>
+                    <div class="doc-foot">
+                        <span class="hint" id="docCounter">0 / 20000</span>
+                        <button class="primary-btn" type="submit">导入</button>
+                    </div>
+                    <p class="form-msg" id="docMsg" hidden></p>
+                </form>
+            </section>
+        </aside>
+    </main>
+</div>
+
+<div class="modal" id="tokenModal" hidden>
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="tokenTitle">
+        <h2 id="tokenTitle">输入访问令牌</h2>
+        <p>令牌只保存在当前页面内存中，刷新后需要重新输入。</p>
+        <form id="tokenForm">
+            <input id="tokenInput" type="password" autocomplete="off" placeholder="X-AI-Token">
+            <p class="form-msg" id="tokenMsg" hidden></p>
+            <div class="modal-actions">
+                <button class="primary-btn" type="submit">进入</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="ai.js"></script>
+</body>
+</html>

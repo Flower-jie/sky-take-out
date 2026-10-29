@@ -60,3 +60,10 @@ sky:
     address: 大同市平城区新建北路公园一号
   baidu:
     ak: ${BAIDU_MAP_AK}
+
+app:
+  ai:
+    access-token: ${AI_ACCESS_TOKEN:}
+    chat-base-url: ${AI_CHAT_BASE_URL:}
+    chat-api-key: ${AI_CHAT_API_KEY:}
+    chat-model: ${AI_CHAT_MODEL:}
