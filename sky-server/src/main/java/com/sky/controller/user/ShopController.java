@@ -26,8 +26,9 @@ public class ShopController {
     @GetMapping("/status")
     @ApiOperation("获取店铺的营业状态")
     public Result<Integer> getStatus(){
-        // TODO: Redis 未安装时临时返回默认值，后续安装 Redis 后恢复
-        Integer status = 1;
+        Object value = redisTemplate.opsForValue().get(KEY);
+        // 未设置或存储值非法时按关店处理；Redis连接异常正常向上抛出。
+        Integer status = Integer.valueOf(1).equals(value) ? 1 : 0;
         log.info("获取到店铺的营业状态为：{}",status == 1 ? "营业中" : "打烊中");
         return Result.success(status);
     }
